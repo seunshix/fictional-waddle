@@ -33,6 +33,10 @@ using namespace std;
     ============
     Used to initialize member variables or allocate storage whenever a new object of a class is called so we do not have scenarios of undetermined results
 
+    Member Initialization in constructors
+    =====================================
+    constructor for a classs
+
 
 */
 
@@ -68,6 +72,14 @@ class Circle{
         double circumference() { return 2*radius*3.14159265;}
 };
 
+class Cylinder{
+    Circle base;
+    double height;
+    public:
+        Cylinder(double r, double h) : base(r), height(h){} // member initialization
+        double volume() {return base.circumference() * height;}
+};
+
 int main() {
     Rectangle rect(3, 4), rectb(76, 75); // default constructor not called
     Rectangle rectc; // default constructor called
@@ -80,15 +92,34 @@ int main() {
     // Four ways to constructs objects of a class whose constructor takes a single parameter
     Circle foo(10.0);       // functional form
     Circle bar = 20.0;      // assignment init
-    Circle baz{30.0};       // uniform init
-    Circle qux = {40.0};    //POD-like
+   // Circle baz{30.0};       // uniform init
+    // Circle qux = {40.0};    //POD-like
 
     cout << '\n';
     cout << "foo's circumference: " << foo.circumference() << '\n';
     cout << "bar's circumference: " << bar.circumference() << '\n';
-    cout << "baz's circumference: " << baz.circumference() << '\n';
-    cout << "qux's circumference: " << qux.circumference() << '\n';
+    // cout << "baz's circumference: " << baz.circumference() << '\n';
+    // cout << "qux's circumference: " << qux.circumference() << '\n';
     cout << '\n';
 
+    Cylinder foofoo (10, 20);
+    cout << "foofoo's volume: " << foofoo.volume() << "/n";
+
+
+    // Pointers to Classes
+
+    Rectangle obj (3, 4);
+    Rectangle * i, * j, * k;
+    i = &obj;
+    j = new Rectangle(5, 6);
+    // k = new Rectangle[2]{{2,5}, {3,6}};
+
+    cout << "obj's area: " << obj.area() << "\n";
+    cout << "i's area: " << i->area() << "\n";
+    cout << "j's area: " << j->area() << "\n";
+    // cout << "k[0]'s area: " << k[0]->area() << "\n";
+    // cout << "k[1]'s area: " << k[1]->area() << "\n";
+    delete j;
+    // delete[] k;
     return 0;
 }
